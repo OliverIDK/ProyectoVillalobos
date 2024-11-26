@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, Alert,Image } from "react-native";
 import React from "react";
-import {Menu,MenuOptions,MenuOption,MenuTrigger} from "react-native-popup-menu";
+import {Menu,MenuOptions,MenuOption,MenuTrigger } from "react-native-popup-menu";
 import { AntDesign, Entypo } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 const Usuario = ({ id, name, rol, email, onEdit }) => {
@@ -8,9 +8,9 @@ const Usuario = ({ id, name, rol, email, onEdit }) => {
   const ImageRol = (rol) =>{
     let Imagen;
     if (rol === "Encargado"){
-      Imagen = require("../assets/encargado.png");
+      Imagen = require("../src/Assets/encargado.png");
     }else{
-      Imagen = require("../assets/empleado.png");
+      Imagen = require("../src/Assets/empleado.png");
     }
     return Imagen;
   };

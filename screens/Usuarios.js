@@ -1,11 +1,10 @@
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, ScrollView } from 'react-native';
-import React, { useEffect, useState } from 'react';
-import Icon from '@expo/vector-icons/Entypo';
-import { useNavigation } from '@react-navigation/native';
+import { StyleSheet, View, TextInput, ScrollView, TouchableOpacity } from "react-native";
+import React from "react";
+import Icon from "@expo/vector-icons/Entypo";
+import Usuario from "../componentes/Usuario";
+import { usuariosMock } from "../componentes/usuariosMock"; 
 
 const Usuarios = () => {
-  const navigation = useNavigation();
-
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -14,57 +13,38 @@ const Usuarios = () => {
           <TextInput style={styles.input} placeholder="Buscar usuario" />
         </View>
       </View>
-      <View style={styles.body}>
-        <ScrollView>
-          
-        </ScrollView>
-      </View>
-      <TouchableOpacity style={styles.btnAdd} onPress={() => navigation.navigate('AddUsuario')}>
+      <ScrollView style={styles.body}>
+        {usuariosMock.map((usuario) => (
+          <Usuario
+            key={usuario.id}
+            id={usuario.id}
+            name={usuario.name}
+            rol={usuario.rol}
+            email={usuario.email}
+          />
+        ))}
+      </ScrollView>
+      <TouchableOpacity style={styles.btnAdd}>
         <Icon name="circle-with-plus" size={65} color="#144E78" />
       </TouchableOpacity>
     </View>
   );
 };
 
-export default Usuarios;
-
 const styles = StyleSheet.create({
-  container: {
-    width: '100%',
-    height: '100%',
-    position: 'relative',
-  },
-  header: {
-    width: '100%',
-    height: 100,
-    backgroundColor: 'white',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+  container: { flex: 1 },
+  header: { height: 100, backgroundColor: "white", justifyContent: "center", alignItems: "center" },
   inputContainer: {
     flexDirection: "row",
     alignItems: "center",
     borderWidth: 1,
     borderColor: "#ccc",
     borderRadius: 8,
-    margin: 15,
-    width: 350,
+    width: "90%",
     height: 50,
+    paddingLeft: 10,
   },
-  input: {
-    flex: 1,
-    fontSize: 15,
-  },
-  icon: {
-    padding: 10,
-  },
-  body: {
-    width: '100%',
-    height: '100%',
-    backgroundColor: 'white',
-    borderTopWidth: 1,
-    borderColor: '#ccc',
-  },
+  body: { flex: 1, backgroundColor: "white" },
   btnAdd: {
     alignItems: 'center',
     justifyContent: 'center',
@@ -79,9 +59,6 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5,
   },
-  btnText: {
-    color: "white",
-    fontSize: 40,
-    fontWeight: "bold",
-  },
 });
+
+export default Usuarios;
