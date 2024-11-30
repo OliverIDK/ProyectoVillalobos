@@ -6,6 +6,7 @@ import Home from "./screens/Home";
 import Usuarios from "./screens/Usuarios";
 import Servicios from "./screens/Servicios";
 import Inventario from "./screens/Inventario";
+import RegistrarServicio from "./screens/RegistrarServicio";
 import Reporte from "./screens/Reporte";
 import Icon from "@expo/vector-icons/Entypo";
 {/*import AgregarUsuario from "./screens/AgregarUsuario";
@@ -62,7 +63,7 @@ function TabGroup() {
     >
       <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="Usuarios" component={Usuarios} />
-      <Tab.Screen name="Servicios" component={Servicios} />
+      <Tab.Screen name="Servicios" component={RegistrarServicio} options={{title:"Agregar Servicio"}} />
       <Tab.Screen name="Inventario" component={Inventario} />
       <Tab.Screen name="Reporte" component={Reporte} />
     </Tab.Navigator>
