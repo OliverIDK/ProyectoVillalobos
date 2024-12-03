@@ -1,7 +1,8 @@
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Image } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Image, TouchableWithoutFeedback } from 'react-native';
 import React, { useState } from 'react';
-import { TextInput, Modal, Portal, PaperProvider } from 'react-native-paper';
+import { TextInput, Modal, Portal, PaperProvider, Button } from 'react-native-paper';
 import { Dropdown } from 'react-native-element-dropdown';
+import Icon from '@expo/vector-icons/Entypo';
 
 const data = [
     { label: 'Nissan', value: '1' },
@@ -37,7 +38,6 @@ const ButtonColors = [
 
 
 const RegistrarServicio = () => {
-    const [matricula, setMatricula] = useState('');
     const [value, setValue] = useState(null);
     const [isFocus, setIsFocus] = useState(false);
     const [selectedButtonId, setSelectedButtonId] = useState(null); // Estado para el botón seleccionado
@@ -57,19 +57,12 @@ const RegistrarServicio = () => {
     const [visible, setVisible] = useState(false);
 
     const showModal = () => setVisible(true);
-    const hideModal = () => setVisible(false);
-    const containerStyle = { backgroundColor: 'white', padding: 20, marginHorizontal: 20, borderRadius: 10 };
-
-    const renderLabel = () => {
-        if (value || isFocus) {
-            return (
-                <Text style={[styles.label, isFocus && { color: 'blue' }]}>
-                    Dropdown label
-                </Text>
-            );
+    const hideModal = () => {
+        if (visible) {
+            setVisible(false); // Cambia el estado solo si es necesario
         }
-        return null;
     };
+
 
     return (
         <PaperProvider>
@@ -108,17 +101,25 @@ const RegistrarServicio = () => {
                             <Text style={styles.txtServicios}>Selecciona los servicios</Text>
                         </TouchableOpacity>
                         <Dropdown
-                            style={styles.dropdown}
+                            style={[
+                                styles.dropdown,
+                                isFocus && { borderColor: '#1A69DC', borderWidth: 2 },
+                            ]}
                             placeholderStyle={styles.placeholderStyle}
                             selectedTextStyle={styles.selectedTextStyle}
                             inputSearchStyle={styles.inputSearchStyle}
+                            iconStyle={[
+                                styles.iconStyle,
+                                isFocus && { tintColor: '#1A69DC' },
+                            ]}
                             data={data}
                             search
                             maxHeight={400}
                             labelField="label"
                             valueField="value"
-                            placeholder="Selecciona el modelo"
+                            placeholder='Selecciona el modelo'
                             searchPlaceholder="Buscar..."
+                            value={value}
                             onFocus={() => setIsFocus(true)}
                             onBlur={() => setIsFocus(false)}
                             onChange={item => {
@@ -129,58 +130,75 @@ const RegistrarServicio = () => {
                         <View style={styles.inputContainer}>
                             <TextInput
                                 style={styles.inputPlacas}
-                                label="Placas" // Texto que aparece como borde superior
-                                value={text}
-                                onChangeText={(text) => setText(text)}
-                                mode="outlined" // Estilo con borde
+                                label="Placas" // Texto que aparece en el borde superior al enfocar
+                                placeholder="Ej. JW-60-261" // Texto inicial
+                                value={text} // Valor del TextInput
+                                onChangeText={(text) => setText(text)} // Manejador para cambios de texto
+                                mode="outlined" // Borde del estilo outlined
+                                activeOutlineColor="#1A69DC" // Color del borde cuando está enfocado
+                                outlineColor="#ccc"
                                 outlineStyle={{
-                                    borderRadius: 15, // Aplica un borde redondeado
-                                    borderColor: "#ccc", // Color del borde
-                                    borderWidth: 1, // Grosor del borde
+                                    borderRadius: 12, // Esquinas redondeadas del borde
+                                    borderWidth: 1.5, // Grosor del borde cuando no está enfocado
                                 }}
-                                textColor='#555'
                                 theme={{
                                     colors: {
-                                        primary: "#555", // Color del borde y del texto cuando está enfocado
-                                        background: "#fff", // Fondo del TextInput
-                                        placeholder: "#555", // Color del placeholder
+                                        background: "#fff", // Fondo del campo de texto
+                                        placeholder: "#555", // Color del texto del placeholder
                                         text: "#555", // Color del texto ingresado
-
                                     },
                                 }}
                             />
                         </View>
+                        <Text style={styles.textos}>Selecciona el color</Text>
+                        <View style={styles.containColor}>
+                            <ScrollView
+                                horizontal
+                                contentContainerStyle={{
+                                    gap: 12,
+                                    paddingHorizontal: 10,
+                                }}
+                            >
+                                {ButtonColors.map((button) => (
+                                    <TouchableOpacity
+                                        key={button.id}
+                                        onPress={() => handleColorPress(button.id)} // Maneja la selección de color
+                                        style={[
+                                            styles.btnColor,
+                                            {
+                                                backgroundColor: button.color,
+                                                borderWidth: selectedColorId === button.id ? 3 : 0.6, // Borde dinámico
+                                                borderColor: selectedColorId === button.id ? '#1A69DC' : '#ccc', // Color del borde
+                                            },
+                                        ]}
+                                    />
+                                ))}
+                            </ScrollView>
+                        </View>
+                        <Text style={styles.textos}>Agregar Captura</Text>
+                        <TouchableOpacity style={styles.btnCapturaImagen}>
+                            <Icon
+                                size={60}
+                                name="camera"
+                            />
+                        </TouchableOpacity>
+                        <Text style={styles.txtTotal}>Total:</Text>
+                        <View style={styles.containTotal}>
+                            <Text style={{ fontSize: 25, color: 'lightblack', fontWeight: 'bold' }}>MX$</Text>
+                            <Text style={{ fontSize: 25, color: 'black', fontWeight: 'bold' }}>600</Text>
+                        </View>
+                        <TouchableOpacity style={styles.btnRegistrarServicio}>
+                            <Text style={{ fontSize: 20, color: 'white', fontWeight: 'bold'}}>Registrar Servicio</Text>
+                        </TouchableOpacity>
                     </View>
-                    <Text style={styles.textos}>Selecciona el color</Text>
-                    <View style={styles.containColor}>
-                        <ScrollView
-                            horizontal
-                            contentContainerStyle={{
-                                gap: 12,
-                                paddingHorizontal: 10,
-                            }}
-                        >
-                            {ButtonColors.map((button) => (
-                                <TouchableOpacity
-                                    key={button.id}
-                                    onPress={() => handleColorPress(button.id)} // Maneja la selección de color
-                                    style={[
-                                        styles.btnColor,
-                                        {
-                                            backgroundColor: button.color,
-                                            borderWidth: selectedColorId === button.id ? 3 : 0.6, // Borde dinámico
-                                            borderColor: selectedColorId === button.id ? '#1A69DC' : '#ccc', // Color del borde
-                                        },
-                                    ]}
-                                />
-                            ))}
-                        </ScrollView>
-                    </View>
-                    <Text style={styles.textos}>Agregar Captura</Text>
                 </ScrollView>
                 {/* Modal */}
                 <Portal>
-                    <Modal visible={visible} onDismiss={hideModal} contentContainerStyle={styles.modalContainer}>
+                    <Modal
+                        contentContainerStyle={styles.modalContainer}
+                        visible={visible}
+                        onDismiss={hideModal}
+                        dismissable={true} >
                         <Text>Selecciona el servicio que deseas agregar</Text>
                     </Modal>
                 </Portal>
@@ -200,12 +218,12 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
     },
     modalContainer: {
-        width: '95%', // Ancho del modal
-        height: '80%', // Alto del modal
-        backgroundColor: '#fff', // Color de fondo del modal
-        borderRadius: 15, // Esquinas redondeadas
-        padding: 20, // Espaciado interno
-        alignSelf: 'center', // Centrado en el contenedor
+        width: '95%',
+        height: '80%',
+        backgroundColor: '#fff',
+        borderRadius: 15,
+        padding: 20,
+        alignSelf: 'center',
     },
     modalText: {
         fontSize: 18,
@@ -256,8 +274,6 @@ const styles = StyleSheet.create({
         fontSize: 16,
         textAlign: 'center',
     },
-
-
     image: {
         width: 70,
         height: 70,
@@ -271,7 +287,7 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         paddingLeft: 10,
         paddingRight: 10,
-        borderWidth: 1,
+        borderWidth: 1.5,
         borderColor: '#ccc',
         gap: 5,
     },
@@ -282,24 +298,6 @@ const styles = StyleSheet.create({
     selectedTextStyle: {
         fontSize: 16,
         color: '#555',
-    },
-    containColor: {
-        width: '100%',
-        height: 40,
-        backgroundColor: 'white',
-        flexDirection: 'row',
-        marginVertical: 15,
-        marginBottom: 5,
-
-
-    },
-    btnColor: {
-        width: 30,
-        height: 30,
-        borderRadius: 50,
-        borderColor: '#ccc',
-        borderWidth: .8,
-        marginHorizontal: 6,
     },
     textos: {
         marginHorizontal: 15,
@@ -312,5 +310,54 @@ const styles = StyleSheet.create({
     inputPlacas: {
         width: '93%',
         fontSize: 16,
+    },
+    containColor: {
+        width: '100%',
+        height: 40,
+        backgroundColor: 'white',
+        flexDirection: 'row',
+        marginVertical: 15,
+        marginBottom: 5,
+    },
+    btnColor: {
+        width: 30,
+        height: 30,
+        borderRadius: 50,
+        borderColor: '#ccc',
+        borderWidth: .8,
+        marginHorizontal: 6,
+    },
+    btnCapturaImagen: {
+        height: 200,
+        width: '93%',
+        justifyContent: "center",
+        borderRadius: 15,
+        backgroundColor: "#ccc",
+        alignItems: "center",
+    },
+    txtTotal: {
+        fontSize: 17,
+        marginHorizontal: 15,
+        fontWeight: 'bold',
+        marginTop: 30,
+    },
+    containTotal: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+    btnRegistrarServicio: {
+        marginVertical: 20,
+        width: '93%',
+        height: 50,
+        marginHorizontal: 15,
+        justifyContent: "center",
+        borderRadius: 15,
+        backgroundColor: '#1A69DC',
+        alignItems: "center",
+        elevation: 5, // Elevación para Android
+        shadowColor: '#000', // Color de sombra (iOS)
+        shadowOpacity: 0.3, // Opacidad de sombra (iOS)
+        shadowOffset: { width: 0, height: 3 }, // Desplazamiento de la sombra (iOS)
+        shadowRadius: 5, // Difuminado de la sombra (iOS)
     }
 })
