@@ -1,16 +1,26 @@
-import { Alert, StyleSheet, Text, View,TouchableOpacity, ImageBackground, TextInput} from "react-native";
-import React from "react";
+import { Alert, StyleSheet, Text, View, TouchableOpacity, ImageBackground } from "react-native";
+import React, { useState } from 'react';
 import "react-native-gesture-handler";
+import { TextInput } from 'react-native-paper';
 import Icon from '@expo/vector-icons/Entypo';
 
 const Login = (props) => {
 
+  const [text2, setText2] = React.useState("");
+  const [password, setPassword] = React.useState("");
+
+  const [isFocused, setIsFocused] = useState(false);
+  const [isFocusedPassword, setIsFocusedPassword] = useState(false);
+
+  const [showPassword, setShowPassword] = useState(false);
+
+
   const logueo = async () => {
     props.navigation.navigate("TapGroup");
   };
-  
+
   return (
-    <View style={styles.container}> 
+    <View style={styles.container}>
       <View style={styles.encabezado}>
         <ImageBackground
           style={styles.logo}
@@ -20,25 +30,100 @@ const Login = (props) => {
       </View>
       <View style={styles.body}>
         <Text style={styles.textInicio}>Bienvenido!</Text>
-        <View style={styles.InputTexts}>
-          <View style={styles.inputContainer}>
-            <Icon name="mail" size={20} color="#888" style={styles.icon} />
-            <TextInput style={styles.input} placeholder="Email" />
-          </View>
-          <View style={styles.inputContainer}>
-            <Icon name="lock" size={20} color="#888" style={styles.icon} />
-            <TextInput style={styles.input} placeholder="Password" secureTextEntry={true}/>
-          </View>
-          <TouchableOpacity style={styles.btnSignIn} onPress={logueo}>
-            <Text style={styles.btnText}>INICIAR SESIóN</Text>
-          </TouchableOpacity>
-          <Text style={styles.txtIDKPassword}>
-            ¿Has olvidado tu contraseña?
-          </Text>
-        </View>
+        <TextInput
+          style={styles.inputs}
+          label="Email"
+          placeholder="Ej. juanito123@gmail.com"
+          value={text2}
+          onChangeText={(text2) => setText2(text2)}
+          onFocus={() => setIsFocused(true)} // Cambia el estado a true cuando se enfoca
+          onBlur={() => setIsFocused(false)} // Cambia el estado a false cuando pierde el enfoque
+          mode="outlined"
+          activeOutlineColor="#1A69DC"
+          outlineColor="#ccc"
+          outlineStyle={{
+            borderRadius: 12,
+            borderWidth: 1.5,
+          }}
+          theme={{
+            colors: {
+              background: "#fff",
+              placeholder: "#555",
+              text: "#555",
+            },
+          }}
+          left={
+            <TextInput.Icon
+              icon={() => (
+                <Icon
+                  name="mail"
+                  size={24}
+                  color={isFocused ? "#1A69DC" : "#555"} // Cambia el color según el estado
+                />
+              )}
+            />
+          }
+        />
+        <TextInput
+          style={styles.inputs}
+          label="Contraseña"
+          placeholder="Ingresa tu contraseña"
+          value={password}
+          onChangeText={(password) => setPassword(password)}
+          onFocus={() => setIsFocusedPassword(true)} // Cambia el estado a true cuando se enfoca
+          onBlur={() => setIsFocusedPassword(false)} // Cambia el estado a false cuando pierde el enfoque
+          mode="outlined"
+          secureTextEntry={!showPassword} // Oculta o muestra la contraseña
+          activeOutlineColor="#1A69DC"
+          outlineColor="#ccc"
+          outlineStyle={{
+            borderRadius: 12,
+            borderWidth: 1.5,
+          }}
+          theme={{
+            colors: {
+              background: "#fff",
+              placeholder: "#555",
+              text: "#555",
+            },
+          }}
+          left={
+            <TextInput.Icon
+              icon={() => (
+                <Icon
+                  name="lock"
+                  size={24}
+                  color={isFocusedPassword ? "#1A69DC" : "#555"} // Cambia el color según el estado
+
+                />
+              )}
+            />
+          }
+          right={
+            password.length > 0 && ( // Mostrar el ícono solo si hay texto en el campo
+              <TextInput.Icon
+                icon={() => (
+                  <Icon
+                    name={showPassword ? "eye-with-line" : "eye"} // Cambiar ícono de ojo según visibilidad
+                    size={20}
+                    color={isFocusedPassword ? "#1A69DC" : "#555"} // Cambio de color cuando está enfocado
+                  />
+                )}
+                onPress={() => setShowPassword(!showPassword)} // Alternar visibilidad de la contraseña
+              />
+            )
+          }
+        />
+        <TouchableOpacity style={styles.btnSignIn} onPress={logueo}>
+          <Text style={styles.btnText}>INICIAR SESIóN</Text>
+        </TouchableOpacity>
+        <Text style={styles.txtIDKPassword}>
+          ¿Has olvidado tu contraseña?
+        </Text>
       </View>
     </View>
-  
+
+
   );
 };
 
@@ -71,31 +156,15 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 80,
   },
   textInicio: {
-    marginTop: 50,
+    marginVertical: 35,
     fontSize: 35,
     fontWeight: "bold",
     color: "#064557",
   },
-  InputTexts: {
-    height: 325,
-    width: 400,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  inputContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    borderWidth: 1,
-    borderColor: "#ccc",
-    borderRadius: 8,
-    margin: 15,
-    width: 300,
-    height: 50,
-    gap: 5
-  },
-  input: {
-    flex: 1,
-    fontSize: 15,
+  inputs: {
+    width: '85%',
+    fontSize: 16,
+    marginBottom: 20,
   },
   icon: {
     padding: 10,

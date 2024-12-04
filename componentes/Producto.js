@@ -67,8 +67,8 @@ import {
       <View style={styles.container}>
         <View style={styles.productInfo}>
           <ImageBackground
-            style={styles.producto1}
-            source={require("../src/Assets/product1.png")}
+            style={styles.imgProducto}
+            source={require("../assets/iconInventario.png")}
             resizeMode="contain"
           />
           <View style={styles.linea}></View>
@@ -155,9 +155,9 @@ import {
       justifyContent: "space-between",
       alignItems: "center",
     },
-    producto1: {
-      width: 48,
-      height: 90,
+    imgProducto: {
+      width: 50,
+      height: 100,
       paddingLeft: 2,
     },
     linea: {

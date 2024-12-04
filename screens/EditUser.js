@@ -13,12 +13,12 @@ const EditUser = () => {
     const [text2, setText2] = React.useState("");
     const [text3, setText3] = React.useState("");
 
-    const [selectedButtonId, setSelectedButtonId] = useState(null); // Estado para el botón seleccionado
+    const [selectedButtonId, setSelectedButtonId] = useState(null); 
 
     const navigation = useNavigation();
 
     const handlePress = (id) => {
-        setSelectedButtonId(id); // Cambia el estado al ID seleccionado
+        setSelectedButtonId(id); 
     };
 
 

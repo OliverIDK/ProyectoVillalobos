@@ -11,6 +11,8 @@ import Reporte from "./screens/Reporte";
 import Icon from "@expo/vector-icons/Entypo";
 import AddUser from "./screens/AddUser";
 import EditUser from "./screens/EditUser";
+import AddProduct from "./screens/AddProduct";
+import EditProduct from "./screens/EditProduct";
 {/*import AgregarUsuario from "./screens/AgregarUsuario";
 import AgregarProducto from "./screens/AgregarProducto";
 import EditarUsuario from "./screens/EditarUsuario";
@@ -31,7 +33,7 @@ function MyStack() {
         name="AddUsuario"
         component={AddUser}
         options={{
-          title: 'Añadir usuario',
+          title: 'Añadir Usuario',
           presentation: "modal",
           animation: "slide_from_bottom",
         }}
@@ -45,6 +47,24 @@ function MyStack() {
           animation: "slide_from_bottom",
         }}
       />
+      <Stack.Screen
+        name="AddProducto"
+        component={AddProduct}
+        options={{
+          title: 'Añadir Producto',
+          presentation: "modal",
+          animation: "slide_from_bottom",
+        }}
+      /><Stack.Screen
+        name="EditProducto"
+        component={EditProduct}
+        options={{
+          title: 'Editar Producto',
+          presentation: "modal",
+          animation: "slide_from_bottom",
+        }}
+      />
+
       <Stack.Screen
         name="TapGroup"
         component={TabGroup}

@@ -1,8 +1,11 @@
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Image, Modal } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Image, Modal, Alert } from 'react-native';
 import React, { useState } from 'react';
 import { TextInput } from 'react-native-paper';
 import { Dropdown } from 'react-native-element-dropdown';
 import Icon from '@expo/vector-icons/Entypo';
+import { CheckBox } from '@rneui/themed';
+import { useNavigation } from "@react-navigation/native";
+
 
 const data = [
     { label: 'Nissan', value: '1' },
@@ -35,12 +38,36 @@ const ButtonColors = [
     { id: 9, color: 'pink' },
 ];
 
+const servicios = [
+    { id: 1, name: "Lavado exterior" },
+    { id: 2, name: "Lavado interior" },
+    { id: 3, name: "Encerado" },
+    { id: 4, name: "Pulido" },
+    { id: 5, name: "Lavado completo" },
+];
+
 
 
 const RegistrarServicio = () => {
+    const navigation = useNavigation();
+
+    const [checks, setChecks] = useState(
+        servicios.reduce((acc, servicio) => { //Para el checkbox
+            acc[servicio.id] = false;
+            return acc;
+        }, {})
+    );
+
+    const toggleService = (id) => {
+        setChecks((prevChecks) => ({
+            ...prevChecks,
+            [id]: !prevChecks[id], // Cambia el estado del checkbox de true a false y viceversa
+        }));
+    };
+
     const [value, setValue] = useState(null);
     const [isFocus, setIsFocus] = useState(false);
-    
+
     const [selectedButtonId, setSelectedButtonId] = useState(null); // Estado para el botón seleccionado
 
     const handlePress = (id) => {
@@ -180,7 +207,23 @@ const RegistrarServicio = () => {
                         <Text style={{ fontSize: 25, color: 'lightblack', fontWeight: 'bold' }}>MX$</Text>
                         <Text style={{ fontSize: 25, color: 'black', fontWeight: 'bold' }}>600</Text>
                     </View>
-                    <TouchableOpacity style={styles.btnRegistrarServicio}>
+                    <TouchableOpacity
+                        style={[styles.btnRegistrarServicio, { marginBottom: 20 }]} // Paréntesis cerrado correctamente
+                        onPress={() =>
+                            Alert.alert(
+                                "Servicio registrado",
+                                "Se registro un servicio con éxito",
+                                [
+                                    {
+                                        text: "OK",
+                                        onPress: () => navigation.navigate('Home'), // Regresa uno hacia atrás al presionar OK
+                                    },
+                                ],
+                                { cancelable: false } // Evita cerrar el alert tocando fuera
+                            )
+                        }
+                    >
+
                         <Text style={{ fontSize: 20, color: 'white', fontWeight: 'bold' }}>Registrar Servicio</Text>
                     </TouchableOpacity>
                 </View>
@@ -194,7 +237,53 @@ const RegistrarServicio = () => {
             >
                 <View style={styles.modalOverlay}>
                     <View style={styles.modalContent}>
-                        <Text style={styles.modalTitle}>Hello World!</Text>
+                        <TouchableOpacity style={styles.btnCerrarModal} onPress={() => setModalVisible(false)}>
+                            <Icon
+                                color="gray"
+                                size={25}
+                                name="circle-with-cross"
+                            />
+                        </TouchableOpacity>
+                        <Text style={styles.modalTitle}>Selecciona los servicios</Text>
+                        {servicios.map((servicio) => (
+                            <CheckBox
+                                key={servicio.id}
+                                alignSelf="flex-start"
+                                iconRight
+                                title={servicio.name}
+                                checked={checks[servicio.id]}
+                                size={25}
+                                onPress={() => toggleService(servicio.id)}
+                                wrapperStyle={{
+                                    flexDirection: "row",
+                                    width: "100%",
+                                }}
+                                textStyle={{ flex: 1, textAlign: "left", fontSize: 16 }}
+                            />
+                        ))}
+                        <TouchableOpacity
+                            style={[styles.btnRegistrarServicio, {
+                                width: 120,
+                                height: 40,
+                                position: 'absolute',
+                                right: 15,
+                                bottom: 15,
+                            }]}
+                            onPress={() =>
+                                Alert.alert(
+                                    "Servicios agregados con éxito",
+                                    "Se agregaron los servicios al vehículo",
+                                    [
+                                        {
+                                            text: "OK",
+                                            onPress: () => setModalVisible(true),
+                                        },
+                                    ],
+                                    { cancelable: false } // Evita cerrar el alert tocando fuera
+                                )
+                            }>
+                            <Text style={{ fontSize: 18, color: 'white', fontWeight: 'bold' }}>Agregar</Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
             </Modal>
@@ -289,7 +378,9 @@ const styles = StyleSheet.create({
     },
     textos: {
         marginHorizontal: 15,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        alignSelf: 'flex-start',
+        
     },
     inputContainer: {
         width: '100%',
@@ -334,10 +425,9 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
     },
     btnRegistrarServicio: {
-        marginVertical: 20,
+        marginTop: 15,
         width: '93%',
         height: 50,
-        marginHorizontal: 15,
         justifyContent: "center",
         borderRadius: 15,
         backgroundColor: '#1A69DC',
@@ -353,19 +443,33 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         backgroundColor: "rgba(0, 0, 0, 0.5)",
-      },
-      modalContent: {
+    },
+    modalContent: {
         backgroundColor: "#fff",
-        padding: 20,
+        paddingTop: 20,
         borderRadius: 10,
         alignItems: "center",
         width: "80%",
-        height:'80%',
-      },
-      modalTitle: {
+        height: '50%',
+    },
+    modalTitle: {
+        alignSelf: 'flex-start',
         fontSize: 18,
         fontWeight: "bold",
         marginBottom: 20,
-        color: "#333",
-      },
-})
+        color: "#1A69DC",
+        paddingLeft: 25,
+    },
+    btnCerrarModal: {
+        position: 'absolute',
+        top: 10,
+        right: 10,
+        backgroundColor: 'white',
+        borderRadius: 20,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.3,
+        shadowRadius: 3,
+        elevation: 5,
+    },
+});
