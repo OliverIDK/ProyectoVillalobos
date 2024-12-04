@@ -11,10 +11,8 @@ import Reporte from "./screens/Reporte";
 import Icon from "@expo/vector-icons/Entypo";
 import AddUser from "./screens/AddUser";
 import EditUser from "./screens/EditUser";
-{/*import AgregarUsuario from "./screens/AgregarUsuario";
-import AgregarProducto from "./screens/AgregarProducto";
-import EditarUsuario from "./screens/EditarUsuario";
-import EditarProducto from "./screens/EditarProducto";*/}
+import EditServicio from "./screens/EditServicio";
+
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 function MyStack() {
@@ -41,6 +39,15 @@ function MyStack() {
         component={EditUser}
         options={{
           title: 'Editar usuario',
+          presentation: "modal",
+          animation: "slide_from_bottom",
+        }}
+      />
+            <Stack.Screen
+        name="EditServicio"
+        component={EditServicio}
+        options={{
+          title: 'Editar Servicio',
           presentation: "modal",
           animation: "slide_from_bottom",
         }}

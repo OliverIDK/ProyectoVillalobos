@@ -56,7 +56,6 @@ import {
             text: "Eliminar",
             onPress: () => {
               Alert.alert("Eliminado", `Producto "${producto}" eliminado`);
-              // En un entorno real, aquí podrías llamar a una función para actualizar el estado global o el mock.
             },
           },
         ]
