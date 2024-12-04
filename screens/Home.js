@@ -1,17 +1,24 @@
-import { StyleSheet, Text, View, ScrollView } from "react-native";
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from "react-native";
 import React from "react";
 import Servicio from "../componentes/Servicio";
 import serviciosMock from "../componentes/serviciosMock";
+import { Entypo } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 const Home = () => {
+  const navigation = useNavigation();
   const totalGanado = serviciosMock.reduce((sum, servicio) => sum + servicio.costoServicio, 0);
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <View style={styles.container}>
       <Text style={styles.title}>Encargado</Text>
+      <TouchableOpacity style={styles.Titulos}><Entypo name="log-out"
+          size={30}
+          color="#144E78"
+          onPress={() => navigation.goBack()}></Entypo></TouchableOpacity>
       <Text style={styles.total}>Total ganado: ${totalGanado}</Text>
-      <Servicio />
-    </ScrollView>
+      <ScrollView><Servicio/></ScrollView>
+    </View>
   );
 };
 
@@ -21,6 +28,7 @@ const styles = StyleSheet.create({
   container: {
     padding: 10,
     paddingBottom: 100,
+    width:"100%"
   },
   title: {
     fontSize: 24,
@@ -34,4 +42,9 @@ const styles = StyleSheet.create({
     textAlign: "left",
     marginBottom: 20,
   },
+  Titulos:{
+    position:"absolute",
+    left:350,
+    top:10,
+  }
 });

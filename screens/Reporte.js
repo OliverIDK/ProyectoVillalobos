@@ -13,12 +13,12 @@ const Reporte = () => {
   const [sabado, setSabado] = useState("");
   const [domingo, setDomingo] = useState("");
 
-  const [carroChico, setCarroChico] = useState(0.2); 
-  const [carroMediano, setCarroMediano] = useState(0.3); 
-  const [carroGrande, setCarroGrande] = useState(0.15); 
-  const [taxiUber, setTaxiUber] = useState(0.1); 
-  const [moto, setMoto] = useState(0.1); 
-  const [cuatrimoto, setCuatrimoto] = useState(0.1); 
+  const [carroChico, setCarroChico] = useState(0.2);
+  const [carroMediano, setCarroMediano] = useState(0.3);
+  const [carroGrande, setCarroGrande] = useState(0.15);
+  const [taxiUber, setTaxiUber] = useState(0.1);
+  const [moto, setMoto] = useState(0.1);
+  const [cuatrimoto, setCuatrimoto] = useState(0.1);
   const [racer, setRacer] = useState(0.05);
 
   return (
@@ -141,7 +141,6 @@ const Reporte = () => {
             keyboardType="numeric"
           />
         </View>
-        {/* Repetir TextInput para los otros días */}
 
         <Text style={styles.title}>Tipos de autos más frecuentes</Text>
         <GraficaP
@@ -154,112 +153,111 @@ const Reporte = () => {
           racer={racer}
         />
         <Text style={styles.title}>Ingrese los valores de tipos de autos:</Text>
-<View style={styles.inputContainer}>
-  <TextInput
-    style={styles.inputPlacas}
-    label="Carro Chico"
-    placeholder="Ej. 0.2"
-    value={carroChico.toString()}
-    onChangeText={(text) => setCarroChico(Number(text))}
-    mode="outlined"
-    activeOutlineColor="#1A69DC"
-    outlineColor="#ccc"
-    outlineStyle={styles.inputOutline}
-    theme={styles.inputTheme}
-    keyboardType="numeric"
-  />
-</View>
-<View style={styles.inputContainer}>
-  <TextInput
-    style={styles.inputPlacas}
-    label="Carro Mediano"
-    placeholder="Ej. 0.3"
-    value={carroMediano.toString()}
-    onChangeText={(text) => setCarroMediano(Number(text))}
-    mode="outlined"
-    activeOutlineColor="#1A69DC"
-    outlineColor="#ccc"
-    outlineStyle={styles.inputOutline}
-    theme={styles.inputTheme}
-    keyboardType="numeric"
-  />
-</View>
-<View style={styles.inputContainer}>
-  <TextInput
-    style={styles.inputPlacas}
-    label="Carro Grande"
-    placeholder="Ej. 0.15"
-    value={carroGrande.toString()}
-    onChangeText={(text) => setCarroGrande(Number(text))}
-    mode="outlined"
-    activeOutlineColor="#1A69DC"
-    outlineColor="#ccc"
-    outlineStyle={styles.inputOutline}
-    theme={styles.inputTheme}
-    keyboardType="numeric"
-  />
-</View>
-<View style={styles.inputContainer}>
-  <TextInput
-    style={styles.inputPlacas}
-    label="Taxi/Uber"
-    placeholder="Ej. 0.1"
-    value={taxiUber.toString()}
-    onChangeText={(text) => setTaxiUber(Number(text))}
-    mode="outlined"
-    activeOutlineColor="#1A69DC"
-    outlineColor="#ccc"
-    outlineStyle={styles.inputOutline}
-    theme={styles.inputTheme}
-    keyboardType="numeric"
-  />
-</View>
-<View style={styles.inputContainer}>
-  <TextInput
-    style={styles.inputPlacas}
-    label="Moto"
-    placeholder="Ej. 0.1"
-    value={moto.toString()}
-    onChangeText={(text) => setMoto(Number(text))}
-    mode="outlined"
-    activeOutlineColor="#1A69DC"
-    outlineColor="#ccc"
-    outlineStyle={styles.inputOutline}
-    theme={styles.inputTheme}
-    keyboardType="numeric"
-  />
-</View>
-<View style={styles.inputContainer}>
-  <TextInput
-    style={styles.inputPlacas}
-    label="Cuatrimoto"
-    placeholder="Ej. 0.1"
-    value={cuatrimoto.toString()}
-    onChangeText={(text) => setCuatrimoto(Number(text))}
-    mode="outlined"
-    activeOutlineColor="#1A69DC"
-    outlineColor="#ccc"
-    outlineStyle={styles.inputOutline}
-    theme={styles.inputTheme}
-    keyboardType="numeric"
-  />
-</View>
-<View style={styles.inputContainer}>
-  <TextInput
-    style={styles.inputPlacas}
-    label="Racer"
-    placeholder="Ej. 0.05"
-    value={racer.toString()}
-    onChangeText={(text) => setRacer(Number(text))}
-    mode="outlined"
-    activeOutlineColor="#1A69DC"
-    outlineColor="#ccc"
-    outlineStyle={styles.inputOutline}
-    theme={styles.inputTheme}
-    keyboardType="numeric"
-  />
-</View>
-
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.inputPlacas}
+            label="Carro Chico"
+            placeholder="Ej. 0.2"
+            value={carroChico.toString()}
+            onChangeText={(text) => setCarroChico(Number(text))}
+            mode="outlined"
+            activeOutlineColor="#1A69DC"
+            outlineColor="#ccc"
+            outlineStyle={styles.inputOutline}
+            theme={styles.inputTheme}
+            keyboardType="numeric"
+          />
+        </View>
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.inputPlacas}
+            label="Carro Mediano"
+            placeholder="Ej. 0.3"
+            value={carroMediano.toString()}
+            onChangeText={(text) => setCarroMediano(Number(text))}
+            mode="outlined"
+            activeOutlineColor="#1A69DC"
+            outlineColor="#ccc"
+            outlineStyle={styles.inputOutline}
+            theme={styles.inputTheme}
+            keyboardType="numeric"
+          />
+        </View>
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.inputPlacas}
+            label="Carro Grande"
+            placeholder="Ej. 0.15"
+            value={carroGrande.toString()}
+            onChangeText={(text) => setCarroGrande(Number(text))}
+            mode="outlined"
+            activeOutlineColor="#1A69DC"
+            outlineColor="#ccc"
+            outlineStyle={styles.inputOutline}
+            theme={styles.inputTheme}
+            keyboardType="numeric"
+          />
+        </View>
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.inputPlacas}
+            label="Taxi/Uber"
+            placeholder="Ej. 0.1"
+            value={taxiUber.toString()}
+            onChangeText={(text) => setTaxiUber(Number(text))}
+            mode="outlined"
+            activeOutlineColor="#1A69DC"
+            outlineColor="#ccc"
+            outlineStyle={styles.inputOutline}
+            theme={styles.inputTheme}
+            keyboardType="numeric"
+          />
+        </View>
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.inputPlacas}
+            label="Moto"
+            placeholder="Ej. 0.1"
+            value={moto.toString()}
+            onChangeText={(text) => setMoto(Number(text))}
+            mode="outlined"
+            activeOutlineColor="#1A69DC"
+            outlineColor="#ccc"
+            outlineStyle={styles.inputOutline}
+            theme={styles.inputTheme}
+            keyboardType="numeric"
+          />
+        </View>
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.inputPlacas}
+            label="Cuatrimoto"
+            placeholder="Ej. 0.1"
+            value={cuatrimoto.toString()}
+            onChangeText={(text) => setCuatrimoto(Number(text))}
+            mode="outlined"
+            activeOutlineColor="#1A69DC"
+            outlineColor="#ccc"
+            outlineStyle={styles.inputOutline}
+            theme={styles.inputTheme}
+            keyboardType="numeric"
+          />
+        </View>
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.inputPlacas}
+            label="Racer"
+            placeholder="Ej. 0.05"
+            value={racer.toString()}
+            onChangeText={(text) => setRacer(Number(text))}
+            mode="outlined"
+            activeOutlineColor="#1A69DC"
+            outlineColor="#ccc"
+            outlineStyle={styles.inputOutline}
+            theme={styles.inputTheme}
+            keyboardType="numeric"
+          />
+        </View>
       </ScrollView>
     </View>
   );

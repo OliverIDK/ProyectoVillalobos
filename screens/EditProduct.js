@@ -35,21 +35,21 @@ const EditProduct = () => {
             <TextInput
                 style={styles.inputs}
                 label="Nombre del Producto"
-                placeholder="Ej. Shampoo para carro" // Texto inicial
-                value={text} // Valor del TextInput
-                onChangeText={(text) => setText(text)} // Manejador para cambios de texto
-                mode="outlined" // Borde del estilo outlined
-                activeOutlineColor="#1A69DC" // Color del borde cuando está enfocado
+                placeholder="Ej. Shampoo para carro"
+                value={text}
+                onChangeText={(text) => setText(text)}
+                mode="outlined"
+                activeOutlineColor="#1A69DC"
                 outlineColor="#ccc"
                 outlineStyle={{
-                    borderRadius: 12, // Esquinas redondeadas del borde
-                    borderWidth: 1.5, // Grosor del borde cuando no está enfocado
+                    borderRadius: 12, 
+                    borderWidth: 1.5, 
                 }}
                 theme={{
                     colors: {
-                        background: "#fff", // Fondo del campo de texto
-                        placeholder: "#555", // Color del texto del placeholder
-                        text: "#555", // Color del texto ingresado
+                        background: "#fff", 
+                        placeholder: "#555",
+                        text: "#555",
                     },
                 }}
             />
@@ -94,10 +94,10 @@ const EditProduct = () => {
                     [
                         {
                             text: "OK",
-                            onPress: () => navigation.goBack(), // Regresa uno hacia atrás al presionar OK
+                            onPress: () => navigation.goBack(), 
                         },
                     ],
-                    { cancelable: false } // Evita cerrar el alert tocando fuera
+                    { cancelable: false }
                 )
             }>
                 <Text
@@ -178,11 +178,11 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         backgroundColor: '#1A69DC',
         alignItems: "center",
-        elevation: 5, // Elevación para Android
-        shadowColor: '#000', // Color de sombra (iOS)
-        shadowOpacity: 0.3, // Opacidad de sombra (iOS)
-        shadowOffset: { width: 0, height: 3 }, // Desplazamiento de la sombra (iOS)
-        shadowRadius: 5, // Difuminado de la sombra (iOS)
+        elevation: 5, 
+        shadowColor: '#000', 
+        shadowOpacity: 0.3, 
+        shadowOffset: { width: 0, height: 3 }, 
+        shadowRadius: 5, 
     },
 
 })

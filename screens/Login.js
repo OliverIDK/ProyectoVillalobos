@@ -36,8 +36,8 @@ const Login = (props) => {
           placeholder="Ej. juanito123@gmail.com"
           value={text2}
           onChangeText={(text2) => setText2(text2)}
-          onFocus={() => setIsFocused(true)} // Cambia el estado a true cuando se enfoca
-          onBlur={() => setIsFocused(false)} // Cambia el estado a false cuando pierde el enfoque
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
           mode="outlined"
           activeOutlineColor="#1A69DC"
           outlineColor="#ccc"
@@ -58,7 +58,7 @@ const Login = (props) => {
                 <Icon
                   name="mail"
                   size={24}
-                  color={isFocused ? "#1A69DC" : "#555"} // Cambia el color según el estado
+                  color={isFocused ? "#1A69DC" : "#555"}
                 />
               )}
             />
@@ -70,10 +70,10 @@ const Login = (props) => {
           placeholder="Ingresa tu contraseña"
           value={password}
           onChangeText={(password) => setPassword(password)}
-          onFocus={() => setIsFocusedPassword(true)} // Cambia el estado a true cuando se enfoca
-          onBlur={() => setIsFocusedPassword(false)} // Cambia el estado a false cuando pierde el enfoque
+          onFocus={() => setIsFocusedPassword(true)} 
+          onBlur={() => setIsFocusedPassword(false)} 
           mode="outlined"
-          secureTextEntry={!showPassword} // Oculta o muestra la contraseña
+          secureTextEntry={!showPassword}
           activeOutlineColor="#1A69DC"
           outlineColor="#ccc"
           outlineStyle={{
@@ -93,23 +93,23 @@ const Login = (props) => {
                 <Icon
                   name="lock"
                   size={24}
-                  color={isFocusedPassword ? "#1A69DC" : "#555"} // Cambia el color según el estado
+                  color={isFocusedPassword ? "#1A69DC" : "#555"}
 
                 />
               )}
             />
           }
           right={
-            password.length > 0 && ( // Mostrar el ícono solo si hay texto en el campo
+            password.length > 0 && (
               <TextInput.Icon
                 icon={() => (
                   <Icon
-                    name={showPassword ? "eye-with-line" : "eye"} // Cambiar ícono de ojo según visibilidad
+                    name={showPassword ? "eye-with-line" : "eye"}
                     size={20}
-                    color={isFocusedPassword ? "#1A69DC" : "#555"} // Cambio de color cuando está enfocado
+                    color={isFocusedPassword ? "#1A69DC" : "#555"}
                   />
                 )}
-                onPress={() => setShowPassword(!showPassword)} // Alternar visibilidad de la contraseña
+                onPress={() => setShowPassword(!showPassword)}
               />
             )
           }
@@ -117,9 +117,6 @@ const Login = (props) => {
         <TouchableOpacity style={styles.btnSignIn} onPress={logueo}>
           <Text style={styles.btnText}>INICIAR SESIóN</Text>
         </TouchableOpacity>
-        <Text style={styles.txtIDKPassword}>
-          ¿Has olvidado tu contraseña?
-        </Text>
       </View>
     </View>
 

@@ -45,7 +45,7 @@ const AddUser = () => {
                                     fontSize: 16,
                                     textAlign: 'center',
                                     fontWeight: 'bold',
-                                    color: selectedButtonId === button.id ? '#FFFFFF' : '#000000', // Cambia el color del texto dinámicamente
+                                    color: selectedButtonId === button.id ? '#FFFFFF' : '#000000',
                                 },
                             ]}
                         >
@@ -57,63 +57,63 @@ const AddUser = () => {
             <TextInput
                 style={styles.inputs}
                 label="Nombre"
-                placeholder="Ej. Juan" // Texto inicial
-                value={text} // Valor del TextInput
-                onChangeText={(text) => setText(text)} // Manejador para cambios de texto
-                mode="outlined" // Borde del estilo outlined
-                activeOutlineColor="#1A69DC" // Color del borde cuando está enfocado
+                placeholder="Ej. Juan"
+                value={text}
+                onChangeText={(text) => setText(text)}
+                mode="outlined"
+                activeOutlineColor="#1A69DC"
                 outlineColor="#ccc"
                 outlineStyle={{
-                    borderRadius: 12, // Esquinas redondeadas del borde
-                    borderWidth: 1.5, // Grosor del borde cuando no está enfocado
+                    borderRadius: 12,
+                    borderWidth: 1.5,
                 }}
                 theme={{
                     colors: {
-                        background: "#fff", // Fondo del campo de texto
-                        placeholder: "#555", // Color del texto del placeholder
-                        text: "#555", // Color del texto ingresado
+                        background: "#fff",
+                        placeholder: "#555",
+                        text: "#555",
                     },
                 }}
             />
             <TextInput
                 style={styles.inputs}
                 label="Email"
-                placeholder="Ej. juanito123@gmail.com" // Texto inicial
-                value={text2} // Valor del TextInput
-                onChangeText={(text2) => setText2(text2)} // Manejador para cambios de texto
-                mode="outlined" // Borde del estilo outlined
-                activeOutlineColor="#1A69DC" // Color del borde cuando está enfocado
+                placeholder="Ej. juanito123@gmail.com"
+                value={text2}
+                onChangeText={(text2) => setText2(text2)}
+                mode="outlined"
+                activeOutlineColor="#1A69DC"
                 outlineColor="#ccc"
                 outlineStyle={{
-                    borderRadius: 12, // Esquinas redondeadas del borde
-                    borderWidth: 1.5, // Grosor del borde cuando no está enfocado
+                    borderRadius: 12, 
+                    borderWidth: 1.5,
                 }}
                 theme={{
                     colors: {
-                        background: "#fff", // Fondo del campo de texto
-                        placeholder: "#555", // Color del texto del placeholder
-                        text: "#555", // Color del texto ingresado
+                        background: "#fff",
+                        placeholder: "#555", 
+                        text: "#555",
                     },
                 }}
             />
             <TextInput
                 style={styles.inputs}
                 label="Contraseña"
-                placeholder="Ej. @AcS4.Zy" // Texto inicial
-                value={text3} // Valor del TextInput
-                onChangeText={(text3) => setText3(text3)} // Manejador para cambios de texto
-                mode="outlined" // Borde del estilo outlined
-                activeOutlineColor="#1A69DC" // Color del borde cuando está enfocado
+                placeholder="Ej. @AcS4.Zy" 
+                value={text3}
+                onChangeText={(text3) => setText3(text3)} 
+                mode="outlined" 
+                activeOutlineColor="#1A69DC"
                 outlineColor="#ccc"
                 outlineStyle={{
-                    borderRadius: 12, // Esquinas redondeadas del borde
-                    borderWidth: 1.5, // Grosor del borde cuando no está enfocado
+                    borderRadius: 12, 
+                    borderWidth: 1.5,
                 }}
                 theme={{
                     colors: {
-                        background: "#fff", // Fondo del campo de texto
-                        placeholder: "#555", // Color del texto del placeholder
-                        text: "#555", // Color del texto ingresado
+                        background: "#fff",
+                        placeholder: "#555", 
+                        text: "#555", 
                     },
                 }}
             />
@@ -124,10 +124,10 @@ const AddUser = () => {
                     [
                         {
                             text: "OK",
-                            onPress: () => navigation.goBack(), // Regresa uno hacia atrás al presionar OK
+                            onPress: () => navigation.goBack(),
                         },
                     ],
-                    { cancelable: false } // Evita cerrar el alert tocando fuera
+                    { cancelable: false }
                 )
             }>
                 <Text

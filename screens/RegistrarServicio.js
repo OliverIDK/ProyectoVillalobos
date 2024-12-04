@@ -52,7 +52,7 @@ const RegistrarServicio = () => {
     const navigation = useNavigation();
 
     const [checks, setChecks] = useState(
-        servicios.reduce((acc, servicio) => { //Para el checkbox
+        servicios.reduce((acc, servicio) => {
             acc[servicio.id] = false;
             return acc;
         }, {})
@@ -61,23 +61,23 @@ const RegistrarServicio = () => {
     const toggleService = (id) => {
         setChecks((prevChecks) => ({
             ...prevChecks,
-            [id]: !prevChecks[id], // Cambia el estado del checkbox de true a false y viceversa
+            [id]: !prevChecks[id],
         }));
     };
 
     const [value, setValue] = useState(null);
     const [isFocus, setIsFocus] = useState(false);
 
-    const [selectedButtonId, setSelectedButtonId] = useState(null); // Estado para el botón seleccionado
+    const [selectedButtonId, setSelectedButtonId] = useState(null);
 
     const handlePress = (id) => {
-        setSelectedButtonId(id); // Cambia el estado al ID seleccionado
+        setSelectedButtonId(id);
     };
 
-    const [selectedColorId, setSelectedColorId] = useState(null); // Estado para color seleccionado
+    const [selectedColorId, setSelectedColorId] = useState(null);
 
     const handleColorPress = (id) => {
-        setSelectedColorId(id); // Actualiza el estado con el ID del color seleccionado
+        setSelectedColorId(id);
     };
 
     const [text, setText] = React.useState("");
@@ -107,7 +107,7 @@ const RegistrarServicio = () => {
                                 <Text
                                     style={[
                                         styles.txtVehiculo,
-                                        { color: selectedButtonId === button.id ? '#FFFFFF' : '#6B6B6B' } // Cambia el color del texto dinámicamente
+                                        { color: selectedButtonId === button.id ? '#FFFFFF' : '#6B6B6B' }
                                     ]}
                                 >
                                     {button.label}
@@ -150,22 +150,22 @@ const RegistrarServicio = () => {
                     <View style={styles.inputContainer}>
                         <TextInput
                             style={styles.inputPlacas}
-                            label="Placas" // Texto que aparece en el borde superior al enfocar
-                            placeholder="Ej. JW-60-261" // Texto inicial
-                            value={text} // Valor del TextInput
-                            onChangeText={(text) => setText(text)} // Manejador para cambios de texto
-                            mode="outlined" // Borde del estilo outlined
-                            activeOutlineColor="#1A69DC" // Color del borde cuando está enfocado
+                            label="Placas"
+                            placeholder="Ej. JW-60-261"
+                            value={text}
+                            onChangeText={(text) => setText(text)}
+                            mode="outlined"
+                            activeOutlineColor="#1A69DC"
                             outlineColor="#ccc"
                             outlineStyle={{
-                                borderRadius: 12, // Esquinas redondeadas del borde
-                                borderWidth: 1.5, // Grosor del borde cuando no está enfocado
+                                borderRadius: 12,
+                                borderWidth: 1.5,
                             }}
                             theme={{
                                 colors: {
-                                    background: "#fff", // Fondo del campo de texto
-                                    placeholder: "#555", // Color del texto del placeholder
-                                    text: "#555", // Color del texto ingresado
+                                    background: "#fff",
+                                    placeholder: "#555",
+                                    text: "#555",
                                 },
                             }}
                         />
@@ -182,13 +182,13 @@ const RegistrarServicio = () => {
                             {ButtonColors.map((button) => (
                                 <TouchableOpacity
                                     key={button.id}
-                                    onPress={() => handleColorPress(button.id)} // Maneja la selección de color
+                                    onPress={() => handleColorPress(button.id)}
                                     style={[
                                         styles.btnColor,
                                         {
                                             backgroundColor: button.color,
-                                            borderWidth: selectedColorId === button.id ? 3 : 0.6, // Borde dinámico
-                                            borderColor: selectedColorId === button.id ? '#1A69DC' : '#ccc', // Color del borde
+                                            borderWidth: selectedColorId === button.id ? 3 : 0.6, 
+                                            borderColor: selectedColorId === button.id ? '#1A69DC' : '#ccc', 
                                         },
                                     ]}
                                 />
@@ -208,7 +208,7 @@ const RegistrarServicio = () => {
                         <Text style={{ fontSize: 25, color: 'black', fontWeight: 'bold' }}>600</Text>
                     </View>
                     <TouchableOpacity
-                        style={[styles.btnRegistrarServicio, { marginBottom: 20 }]} // Paréntesis cerrado correctamente
+                        style={[styles.btnRegistrarServicio, { marginBottom: 20 }]}
                         onPress={() =>
                             Alert.alert(
                                 "Servicio registrado",
@@ -216,10 +216,10 @@ const RegistrarServicio = () => {
                                 [
                                     {
                                         text: "OK",
-                                        onPress: () => navigation.navigate('Home'), // Regresa uno hacia atrás al presionar OK
+                                        onPress: () => navigation.navigate('Home'),
                                     },
                                 ],
-                                { cancelable: false } // Evita cerrar el alert tocando fuera
+                                { cancelable: false }
                             )
                         }
                     >
@@ -279,7 +279,7 @@ const RegistrarServicio = () => {
                                             onPress: () => setModalVisible(true),
                                         },
                                     ],
-                                    { cancelable: false } // Evita cerrar el alert tocando fuera
+                                    { cancelable: false }
                                 )
                             }>
                             <Text style={{ fontSize: 18, color: 'white', fontWeight: 'bold' }}>Agregar</Text>
@@ -432,11 +432,11 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         backgroundColor: '#1A69DC',
         alignItems: "center",
-        elevation: 5, // Elevación para Android
-        shadowColor: '#000', // Color de sombra (iOS)
-        shadowOpacity: 0.3, // Opacidad de sombra (iOS)
-        shadowOffset: { width: 0, height: 3 }, // Desplazamiento de la sombra (iOS)
-        shadowRadius: 5, // Difuminado de la sombra (iOS)
+        elevation: 5,
+        shadowColor: '#000',
+        shadowOpacity: 0.3,
+        shadowOffset: { width: 0, height: 3 },
+        shadowRadius: 5,
     },
     modalOverlay: {
         flex: 1,
