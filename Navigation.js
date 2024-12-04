@@ -109,7 +109,7 @@ function TabGroup() {
         },
       })}
     >
-      <Tab.Screen name="Home" component={Home} />
+      <Tab.Screen name="Home" component={Home} options={{title:"Actividad"}}/>
       <Tab.Screen name="Usuarios" component={Usuarios} />
       <Tab.Screen name="Servicios" component={RegistrarServicio} options={{ title: "Agregar Servicio" }} />
       <Tab.Screen name="Inventario" component={Inventario} />
