@@ -3,8 +3,9 @@ import React from "react";
 import Icon from "@expo/vector-icons/Entypo";
 import Usuario from "../componentes/Usuario";
 import { usuariosMock } from "../componentes/usuariosMock"; 
-
+import { useNavigation } from "@react-navigation/native";
 const Usuarios = () => {
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -24,7 +25,7 @@ const Usuarios = () => {
           />
         ))}
       </ScrollView>
-      <TouchableOpacity style={styles.btnAdd}>
+      <TouchableOpacity style={styles.btnAdd} onPress={() => navigation.navigate('AddUsuario')}>
         <Icon name="circle-with-plus" size={65} color="#144E78" />
       </TouchableOpacity>
     </View>

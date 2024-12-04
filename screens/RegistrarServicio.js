@@ -1,6 +1,6 @@
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Image, TouchableWithoutFeedback } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Image, Modal } from 'react-native';
 import React, { useState } from 'react';
-import { TextInput, Modal, Portal, PaperProvider, Button } from 'react-native-paper';
+import { TextInput } from 'react-native-paper';
 import { Dropdown } from 'react-native-element-dropdown';
 import Icon from '@expo/vector-icons/Entypo';
 
@@ -40,6 +40,7 @@ const ButtonColors = [
 const RegistrarServicio = () => {
     const [value, setValue] = useState(null);
     const [isFocus, setIsFocus] = useState(false);
+    
     const [selectedButtonId, setSelectedButtonId] = useState(null); // Estado para el botón seleccionado
 
     const handlePress = (id) => {
@@ -54,156 +55,151 @@ const RegistrarServicio = () => {
 
     const [text, setText] = React.useState("");
 
-    const [visible, setVisible] = useState(false);
-
-    const showModal = () => setVisible(true);
-    const hideModal = () => {
-        if (visible) {
-            setVisible(false); // Cambia el estado solo si es necesario
-        }
-    };
+    const [modalVisible, setModalVisible] = useState(false);
 
 
     return (
-        <PaperProvider>
-            <View style={styles.container}>
-                <ScrollView>
-                    <Text style={styles.textos}>Selecciona un vehículo</Text>
-                    <View style={styles.containVehiculo}>
-                        <ScrollView horizontal contentContainerStyle={styles.scrollView}>
-                            {ButtonVehiculos.map((button) => (
+        <View style={styles.container}>
+            <ScrollView>
+                <Text style={styles.textos}>Selecciona un vehículo</Text>
+                <View style={styles.containVehiculo}>
+                    <ScrollView horizontal contentContainerStyle={styles.scrollView}>
+                        {ButtonVehiculos.map((button) => (
+                            <TouchableOpacity
+                                key={button.id}
+                                style={[
+                                    styles.btnVehiculo,
+                                    { backgroundColor: selectedButtonId === button.id ? '#1A69DC' : '#E9E9E9' },
+                                ]}
+                                onPress={() => handlePress(button.id)}
+                            >
+                                <Image
+                                    source={selectedButtonId === button.id ? button.imageSelected : button.imageDefault}
+                                    style={styles.image}
+                                />
+                                <Text
+                                    style={[
+                                        styles.txtVehiculo,
+                                        { color: selectedButtonId === button.id ? '#FFFFFF' : '#6B6B6B' } // Cambia el color del texto dinámicamente
+                                    ]}
+                                >
+                                    {button.label}
+                                </Text>
+                            </TouchableOpacity>
+                        ))}
+                    </ScrollView>
+                </View>
+                <View style={styles.containServicio}>
+                    <TouchableOpacity style={styles.btnServicios} onPress={() => setModalVisible(true)}>
+                        <Text style={styles.txtServicios}>Selecciona los servicios</Text>
+                    </TouchableOpacity>
+                    <Dropdown
+                        style={[
+                            styles.dropdown,
+                            isFocus && { borderColor: '#1A69DC', borderWidth: 2 },
+                        ]}
+                        placeholderStyle={styles.placeholderStyle}
+                        selectedTextStyle={styles.selectedTextStyle}
+                        inputSearchStyle={styles.inputSearchStyle}
+                        iconStyle={[
+                            styles.iconStyle,
+                            isFocus && { tintColor: '#1A69DC' },
+                        ]}
+                        data={data}
+                        search
+                        maxHeight={400}
+                        labelField="label"
+                        valueField="value"
+                        placeholder='Selecciona el modelo'
+                        searchPlaceholder="Buscar..."
+                        value={value}
+                        onFocus={() => setIsFocus(true)}
+                        onBlur={() => setIsFocus(false)}
+                        onChange={item => {
+                            setValue(item.value);
+                            setIsFocus(false);
+                        }}
+                    />
+                    <View style={styles.inputContainer}>
+                        <TextInput
+                            style={styles.inputPlacas}
+                            label="Placas" // Texto que aparece en el borde superior al enfocar
+                            placeholder="Ej. JW-60-261" // Texto inicial
+                            value={text} // Valor del TextInput
+                            onChangeText={(text) => setText(text)} // Manejador para cambios de texto
+                            mode="outlined" // Borde del estilo outlined
+                            activeOutlineColor="#1A69DC" // Color del borde cuando está enfocado
+                            outlineColor="#ccc"
+                            outlineStyle={{
+                                borderRadius: 12, // Esquinas redondeadas del borde
+                                borderWidth: 1.5, // Grosor del borde cuando no está enfocado
+                            }}
+                            theme={{
+                                colors: {
+                                    background: "#fff", // Fondo del campo de texto
+                                    placeholder: "#555", // Color del texto del placeholder
+                                    text: "#555", // Color del texto ingresado
+                                },
+                            }}
+                        />
+                    </View>
+                    <Text style={styles.textos}>Selecciona el color</Text>
+                    <View style={styles.containColor}>
+                        <ScrollView
+                            horizontal
+                            contentContainerStyle={{
+                                gap: 12,
+                                paddingHorizontal: 10,
+                            }}
+                        >
+                            {ButtonColors.map((button) => (
                                 <TouchableOpacity
                                     key={button.id}
+                                    onPress={() => handleColorPress(button.id)} // Maneja la selección de color
                                     style={[
-                                        styles.btnVehiculo,
-                                        { backgroundColor: selectedButtonId === button.id ? '#1A69DC' : '#E9E9E9' },
+                                        styles.btnColor,
+                                        {
+                                            backgroundColor: button.color,
+                                            borderWidth: selectedColorId === button.id ? 3 : 0.6, // Borde dinámico
+                                            borderColor: selectedColorId === button.id ? '#1A69DC' : '#ccc', // Color del borde
+                                        },
                                     ]}
-                                    onPress={() => handlePress(button.id)}
-                                >
-                                    <Image
-                                        source={selectedButtonId === button.id ? button.imageSelected : button.imageDefault}
-                                        style={styles.image}
-                                    />
-                                    <Text
-                                        style={[
-                                            styles.txtVehiculo,
-                                            { color: selectedButtonId === button.id ? '#FFFFFF' : '#6B6B6B' } // Cambia el color del texto dinámicamente
-                                        ]}
-                                    >
-                                        {button.label}
-                                    </Text>
-                                </TouchableOpacity>
+                                />
                             ))}
                         </ScrollView>
                     </View>
-                    <View style={styles.containServicio}>
-                        <TouchableOpacity style={styles.btnServicios} onPress={showModal}>
-                            <Text style={styles.txtServicios}>Selecciona los servicios</Text>
-                        </TouchableOpacity>
-                        <Dropdown
-                            style={[
-                                styles.dropdown,
-                                isFocus && { borderColor: '#1A69DC', borderWidth: 2 },
-                            ]}
-                            placeholderStyle={styles.placeholderStyle}
-                            selectedTextStyle={styles.selectedTextStyle}
-                            inputSearchStyle={styles.inputSearchStyle}
-                            iconStyle={[
-                                styles.iconStyle,
-                                isFocus && { tintColor: '#1A69DC' },
-                            ]}
-                            data={data}
-                            search
-                            maxHeight={400}
-                            labelField="label"
-                            valueField="value"
-                            placeholder='Selecciona el modelo'
-                            searchPlaceholder="Buscar..."
-                            value={value}
-                            onFocus={() => setIsFocus(true)}
-                            onBlur={() => setIsFocus(false)}
-                            onChange={item => {
-                                setValue(item.value);
-                                setIsFocus(false);
-                            }}
+                    <Text style={styles.textos}>Agregar Captura</Text>
+                    <TouchableOpacity style={styles.btnCapturaImagen}>
+                        <Icon
+                            size={60}
+                            name="camera"
                         />
-                        <View style={styles.inputContainer}>
-                            <TextInput
-                                style={styles.inputPlacas}
-                                label="Placas" // Texto que aparece en el borde superior al enfocar
-                                placeholder="Ej. JW-60-261" // Texto inicial
-                                value={text} // Valor del TextInput
-                                onChangeText={(text) => setText(text)} // Manejador para cambios de texto
-                                mode="outlined" // Borde del estilo outlined
-                                activeOutlineColor="#1A69DC" // Color del borde cuando está enfocado
-                                outlineColor="#ccc"
-                                outlineStyle={{
-                                    borderRadius: 12, // Esquinas redondeadas del borde
-                                    borderWidth: 1.5, // Grosor del borde cuando no está enfocado
-                                }}
-                                theme={{
-                                    colors: {
-                                        background: "#fff", // Fondo del campo de texto
-                                        placeholder: "#555", // Color del texto del placeholder
-                                        text: "#555", // Color del texto ingresado
-                                    },
-                                }}
-                            />
-                        </View>
-                        <Text style={styles.textos}>Selecciona el color</Text>
-                        <View style={styles.containColor}>
-                            <ScrollView
-                                horizontal
-                                contentContainerStyle={{
-                                    gap: 12,
-                                    paddingHorizontal: 10,
-                                }}
-                            >
-                                {ButtonColors.map((button) => (
-                                    <TouchableOpacity
-                                        key={button.id}
-                                        onPress={() => handleColorPress(button.id)} // Maneja la selección de color
-                                        style={[
-                                            styles.btnColor,
-                                            {
-                                                backgroundColor: button.color,
-                                                borderWidth: selectedColorId === button.id ? 3 : 0.6, // Borde dinámico
-                                                borderColor: selectedColorId === button.id ? '#1A69DC' : '#ccc', // Color del borde
-                                            },
-                                        ]}
-                                    />
-                                ))}
-                            </ScrollView>
-                        </View>
-                        <Text style={styles.textos}>Agregar Captura</Text>
-                        <TouchableOpacity style={styles.btnCapturaImagen}>
-                            <Icon
-                                size={60}
-                                name="camera"
-                            />
-                        </TouchableOpacity>
-                        <Text style={styles.txtTotal}>Total:</Text>
-                        <View style={styles.containTotal}>
-                            <Text style={{ fontSize: 25, color: 'lightblack', fontWeight: 'bold' }}>MX$</Text>
-                            <Text style={{ fontSize: 25, color: 'black', fontWeight: 'bold' }}>600</Text>
-                        </View>
-                        <TouchableOpacity style={styles.btnRegistrarServicio}>
-                            <Text style={{ fontSize: 20, color: 'white', fontWeight: 'bold'}}>Registrar Servicio</Text>
-                        </TouchableOpacity>
+                    </TouchableOpacity>
+                    <Text style={styles.txtTotal}>Total:</Text>
+                    <View style={styles.containTotal}>
+                        <Text style={{ fontSize: 25, color: 'lightblack', fontWeight: 'bold' }}>MX$</Text>
+                        <Text style={{ fontSize: 25, color: 'black', fontWeight: 'bold' }}>600</Text>
                     </View>
-                </ScrollView>
-                {/* Modal */}
-                <Portal>
-                    <Modal
-                        contentContainerStyle={styles.modalContainer}
-                        visible={visible}
-                        onDismiss={hideModal}
-                        dismissable={true} >
-                        <Text>Selecciona el servicio que deseas agregar</Text>
-                    </Modal>
-                </Portal>
-            </View>
-        </PaperProvider>
+                    <TouchableOpacity style={styles.btnRegistrarServicio}>
+                        <Text style={{ fontSize: 20, color: 'white', fontWeight: 'bold' }}>Registrar Servicio</Text>
+                    </TouchableOpacity>
+                </View>
+            </ScrollView>
+            {/* Modal */}
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalVisible}
+                onRequestClose={() => setModalVisible(false)}
+            >
+                <View style={styles.modalOverlay}>
+                    <View style={styles.modalContent}>
+                        <Text style={styles.modalTitle}>Hello World!</Text>
+                    </View>
+                </View>
+            </Modal>
+        </View>
+
     );
 };
 
@@ -215,15 +211,7 @@ const styles = StyleSheet.create({
     container: {
         width: '100%',
         height: '100%',
-        backgroundColor: 'white',
-    },
-    modalContainer: {
-        width: '95%',
-        height: '80%',
-        backgroundColor: '#fff',
-        borderRadius: 15,
-        padding: 20,
-        alignSelf: 'center',
+        backgroundColor: 'white'
     },
     modalText: {
         fontSize: 18,
@@ -359,5 +347,25 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.3, // Opacidad de sombra (iOS)
         shadowOffset: { width: 0, height: 3 }, // Desplazamiento de la sombra (iOS)
         shadowRadius: 5, // Difuminado de la sombra (iOS)
-    }
+    },
+    modalOverlay: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "rgba(0, 0, 0, 0.5)",
+      },
+      modalContent: {
+        backgroundColor: "#fff",
+        padding: 20,
+        borderRadius: 10,
+        alignItems: "center",
+        width: "80%",
+        height:'80%',
+      },
+      modalTitle: {
+        fontSize: 18,
+        fontWeight: "bold",
+        marginBottom: 20,
+        color: "#333",
+      },
 })

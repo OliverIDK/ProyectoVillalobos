@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, Alert, Image, View } from "react-native";
-import { Card, Avatar, IconButton, Divider,Text } from "react-native-paper";
+import { Card, Avatar, IconButton, Divider, Text } from "react-native-paper";
 import {
   Menu,
   MenuOptions,
@@ -8,8 +8,10 @@ import {
   MenuTrigger,
 } from "react-native-popup-menu";
 import { AntDesign } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 const Usuario = ({ id, name, rol, email, onEdit, onDelete }) => {
+  const navigation = useNavigation();
   const ImageRol = (rol) => {
     return rol === "Encargado"
       ? require("../src/Assets/encargado.png")
@@ -35,12 +37,13 @@ const Usuario = ({ id, name, rol, email, onEdit, onDelete }) => {
               <MenuOptions
                 customStyles={{ optionsContainer: { borderRadius: 15 } }}
               >
-                <MenuOption onSelect={onEdit}>
+                <MenuOption onSelect={() => navigation.navigate('EditUsuario')}>
                   <View style={styles.menuOptionContainer}>
                     <AntDesign name="edit" size={20} color="#144E78" />
                     <Text style={styles.menuText}>Editar</Text>
                   </View>
                 </MenuOption>
+
                 <MenuOption
                   onSelect={() => {
                     Alert.alert(
@@ -94,5 +97,5 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     paddingHorizontal: 10,
   },
-  
+
 });

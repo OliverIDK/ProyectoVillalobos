@@ -9,6 +9,8 @@ import Inventario from "./screens/Inventario";
 import RegistrarServicio from "./screens/RegistrarServicio";
 import Reporte from "./screens/Reporte";
 import Icon from "@expo/vector-icons/Entypo";
+import AddUser from "./screens/AddUser";
+import EditUser from "./screens/EditUser";
 {/*import AgregarUsuario from "./screens/AgregarUsuario";
 import AgregarProducto from "./screens/AgregarProducto";
 import EditarUsuario from "./screens/EditarUsuario";
@@ -23,6 +25,24 @@ function MyStack() {
         component={Login}
         options={{
           headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="AddUsuario"
+        component={AddUser}
+        options={{
+          title: 'Añadir usuario',
+          presentation: "modal",
+          animation: "slide_from_bottom",
+        }}
+      />
+      <Stack.Screen
+        name="EditUsuario"
+        component={EditUser}
+        options={{
+          title: 'Editar usuario',
+          presentation: "modal",
+          animation: "slide_from_bottom",
         }}
       />
       <Stack.Screen
@@ -63,7 +83,7 @@ function TabGroup() {
     >
       <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="Usuarios" component={Usuarios} />
-      <Tab.Screen name="Servicios" component={RegistrarServicio} options={{title:"Agregar Servicio"}} />
+      <Tab.Screen name="Servicios" component={RegistrarServicio} options={{ title: "Agregar Servicio" }} />
       <Tab.Screen name="Inventario" component={Inventario} />
       <Tab.Screen name="Reporte" component={Reporte} />
     </Tab.Navigator>
